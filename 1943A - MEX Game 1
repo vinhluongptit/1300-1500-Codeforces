@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+ 
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n;
+    cin >> n;
+    map<int,int> mp;
+    int maxx = 0;
+    for(int i = 0; i < n; i++){
+      int x; cin >> x;
+      maxx = max(maxx, x);
+      mp[x]++;
+    }
+    int kq = maxx+1;
+    for(int i = 0; i <= maxx; i++){
+      if(mp[i] == 0){
+        kq = i;
+        break;
+      }
+      if(mp[i] == 1){
+        for(int j = i+1; j <= maxx; j++){
+          if(mp[j] == 0){
+            kq = j;
+            break;
+          }
+          if(mp[j] == 1){
+            kq = j;
+            break;
+          }
+        }
+        break;
+      }
+    }
+    cout << kq;
+    cout << endl;
+  }
+}
