@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n, q;
+    cin >> n;
+    vector<int> v(n+1);
+    int giatri[n+1], giatri2[n+1];
+    for(int i = 1; i <= n; i++){
+      cin >> v[i];
+    }
+    giatri[1] = 0;
+    giatri[2] = 1;
+    for(int i = 3; i <= n; i++){
+      if(v[i]-v[i-1] <= v[i-1] - v[i-2]) giatri[i] = giatri[i-1]+1;
+      else giatri[i] = giatri[i-1]+v[i]-v[i-1];
+    }
+
+    giatri2[n] = 0;
+    giatri2[n-1] = 1;
+    for(int i = n-2; i >= 1; i--){
+      if(v[i+1]-v[i] <= v[i+2] - v[i+1]) giatri2[i] = giatri2[i+1]+1;
+      else giatri2[i] = giatri2[i+1]+(v[i+1]-v[i]);
+    }
+    
+    
+    cin >> q;
+    while(q--){
+      int x, y;
+      cin >> x >> y;
+      if(x < y)cout << giatri[y] - giatri[x] << endl;
+      else cout << giatri2[y] - giatri2[x] << endl;
+    }
+  }
+}
