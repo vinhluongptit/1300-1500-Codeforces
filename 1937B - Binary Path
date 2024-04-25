@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n;
+    cin >> n;
+    char s[3][n+1];
+    for(int i = 1; i <= 2; i++){
+      for(int j = 1; j <= n; j++){
+        cin >> s[i][j];
+      }
+    }
+    int ngat = n;
+    for(int i = n-1; i >= 1; i--){
+      if(s[2][i] == '0' && s[1][i+1] == '1'){
+        ngat = i;
+      }
+    }
+    int soluong = 1;
+    for(int i = 2; i <= ngat; i++){
+     if(s[1][i] == '0' && s[2][i-1] == '1'){
+       soluong = i;
+     } 
+    }
+    for(int i = 1; i <= ngat; i++){
+      cout << s[1][i];
+    }
+    for(int i = ngat; i <= n; i++){
+      cout << s[2][i];
+    }
+    cout << endl;
+    cout << ngat - soluong + 1;
+    cout << endl;
+  }
+}
