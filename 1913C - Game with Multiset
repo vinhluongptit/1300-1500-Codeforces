@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int bit[31];
+
+void ktao(){
+  bit[0] = 1;
+  for(int i = 1; i <= 30; i++){
+    bit[i] = bit[i-1]*2;
+  }
+}
+
+
+int main() 
+{
+  ktao();
+    int n;
+    cin >> n;
+    map<int,int> mp;
+    while(n--){
+      int x, y; cin >> x >> y;
+      if(x == 1) mp[bit[y]]++;
+      else{
+        for(int i = 30; i >= 0; i--){
+          y -= min(y/bit[i], mp[bit[i]])*bit[i];
+        }
+        if(y == 0) cout << "Yes";
+        else cout << "No";
+        cout << endl;
+      }
+    }
+  return 0;
+}
