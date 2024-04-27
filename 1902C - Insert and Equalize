@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() 
+{
+	int t;
+	scanf("%d", &t);
+	while(t--){
+		long long a, b;
+		scanf("%lld%lld", &a, &b);
+		if(a > 1e8 || a < 1 || b > 1e8 || a < 1) printf("Nhap sai");
+		else{
+			long long a1 = a, b1 = b;
+			while(b != 0){
+				int tmp = a % b;
+				a = b;
+				b = tmp;
+			}
+			long long bcnn = (a1*b1) / a;
+			printf("%lld ", bcnn);
+			printf("%lld", a);
+		}
+		printf("\n");
+	}
+}
