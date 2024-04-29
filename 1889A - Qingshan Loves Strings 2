@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    int mot = 0, ko = 0;
+    vector<int> v;
+    deque<char> dq;
+    for(int i = 0; i < n; i++){
+      dq.push_back(s[i]);
+    }
+    for(int i = 0; i < n; i++){
+      if(s[i] == '0') ko++;
+      else mot++;
+    }
+    int tmp = 0;
+    if(mot != ko) cout << -1;
+    else{
+      while(!dq.empty()){
+        if(dq.front() == dq.back()){
+          if(dq.front() == '0'){
+            dq.push_back('0');
+            dq.push_back('1');
+            v.push_back(n-tmp);
+          }else{
+            dq.push_front('1');
+            dq.push_front('0');
+            v.push_back(0+tmp);
+          }
+      n += 2;
+        }else{
+          while(!dq.empty() && dq.front() != dq.back()){
+            dq.pop_front();
+            dq.pop_back();
+            tmp++;
+          }
+        }
+      }
+      cout << v.size() << endl;
+      for(int i = 0; i < v.size(); i++){
+        cout << v[i] << " ";
+      }
+    }
+    cout << endl;
+  }
+}
