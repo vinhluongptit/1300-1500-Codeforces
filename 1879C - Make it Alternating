@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+ll mod =  998244353;
+
+ll giaithua(int a){
+  ll hi = 1;
+  for(int i = 1; i <= a; i++){
+    hi *= i;
+    hi %= mod;
+  }
+  return hi;
+}
+
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    string s;
+    cin >> s;
+    ll tmp = 0;
+    ll kq = 0;
+    ll tong = 1;
+    for(int i = 1; i < s.size(); i++){
+      if(s[i] == s[i-1]){
+        tmp++;
+      }else{
+        if(tmp){
+          kq += tmp;
+          tong *= (tmp+1);
+          tong %= mod;
+          tmp = 0;
+        }
+      }
+    }
+    if(tmp){
+      kq += tmp;
+      tong *= tmp+1;
+      tong %= mod;
+    }
+    tong = giaithua(kq)*tong;
+    tong %= mod;
+    
+    cout << kq << " " << tong;
+    cout << endl;
+  }
+}
