@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n;
+    cin >> n;
+    map<int,int> mp;
+    for(int i = 0; i < n; i++){
+      int x; cin >> x;
+      if(x <= n) mp[x]++;
+    }
+    int a[n+1];
+    memset(a, 0, sizeof(a));
+    for(auto x : mp){
+      if(x.second){
+        for(int i = x.first; i <= n; i += x.first){
+          a[i] += x.second;
+        }
+      }
+    }
+    cout << *max_element(a+1, a+n+1) << endl;
+  }
+}
