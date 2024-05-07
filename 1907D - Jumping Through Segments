@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n;
+    cin >> n;
+    vector<pair<int,int>> v(n);
+    for(int i = 0; i < n; i++){
+      cin >> v[i].first >> v[i].second;
+    }
+    int lo = 0, hi = 1e9;
+    while(lo < hi){
+      int mid = lo + (hi-lo)/2;
+      int l = 0, r = mid, ok = 1;;
+      for(int i = 0; i < n; i++){
+        if(v[i].first > r || v[i].second < l){
+          ok = 0;
+          break;
+        }
+        l = max(v[i].first, l);
+        r = min(v[i].second, r);
+        l = max(0, l-mid);
+        r = r + mid;
+      }
+      if(ok){
+        hi = mid;
+      }else lo = mid+1;
+    }
+    cout << lo << endl;
+  }
+}
