@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+void solve(){
+  int n, k;
+  cin >> n >> k;
+  vector<int> v(n);
+  for(int i = 0; i < n; i++){
+    cin >> v[i];
+  }
+  k = min(k, n);
+  int tmp = n-1;
+  for(int i = 0; i < k; i++){
+    if(v[tmp] > n){
+      cout << "No";
+      return;
+    }
+    tmp += n - v[tmp];
+    if(tmp >= n){
+      tmp -= n;
+    }
+  }
+  cout << "Yes";
+}
+
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    solve();
+    cout << endl;
+  }
+}
