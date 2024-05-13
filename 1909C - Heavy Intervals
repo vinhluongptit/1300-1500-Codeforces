@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    ll n;
+    cin >> n;
+    vector<ll> l(n), r(n), val(n);
+    for(int i = 0; i < n; i++) cin >> l[i];
+    for(int i = 0; i < n; i++) cin >> r[i];
+    for(int i = 0; i < n; i++) cin >> val[i];
+    sort(l.begin(), l.end());
+    sort(r.begin(), r.end());
+    sort(val.begin(), val.end(), greater<int>());
+    ll cnt = 0;
+    ll tot = 0;
+    int right = 0;
+    stack<ll> st;
+    vector<int> v;
+    for(int i = 0; i < n; i++){
+      while(r[i] > l[right] && right < n){
+        st.push(l[right]);
+        right++;
+      }
+      v.push_back(r[i]-st.top());
+      st.pop();
+    }
+    sort(v.begin(), v.end());
+    for(int i = 0; i < n; i++){
+      tot += v[i]*val[cnt++];
+    }
+    cout << tot << endl;
+  }
+}
