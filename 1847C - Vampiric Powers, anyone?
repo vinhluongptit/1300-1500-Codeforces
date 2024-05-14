@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n;
+    cin >> n;
+    vector<int> v(n);
+    for(int i = 0; i < n; i++) cin >> v[i];
+    int max_val = 1 << 8;
+    bool has_pref[max_val];
+    memset(has_pref, 0, sizeof(has_pref));
+    has_pref[0] = true;
+    int cur_xor = 0;
+    int ans = 0;
+    for(int i = 0; i < n; i++){
+      cur_xor ^= v[i];
+      for(int i = 0; i < max_val; i++){
+        if(has_pref[i]){
+          ans = max(ans, i^cur_xor);
+        }
+      }
+      has_pref[cur_xor] = true;;
+    }
+    cout << ans << endl;
+  }
+}
