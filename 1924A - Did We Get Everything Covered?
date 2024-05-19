@@ -1,0 +1,42 @@
+
+#include <bits/stdc++.h>                   
+using namespace std;
+
+int main()
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n, m, k;
+    cin >> n >> k >> m;
+    string s;
+    cin >> s;
+    bool found[k];
+    memset(found, false, sizeof(found));
+    string res = "";
+    int cnt = 0;
+    for(char c : s){
+      if(res.size() == n) break;
+      cnt += (!found[c-'a']);
+      found[c-'a'] = true;
+      if(cnt == k){
+        res += c;
+        memset(found, false, sizeof(found));
+        cnt = 0;
+      }
+    }
+    if(res.size() == n) cout << "Yes";
+    else{
+      cout << "No" << endl;;
+      for(int it = 0; it < k; it++){
+        if(!found[it]){
+          while(res.size() < n){
+             res += (char)('a'+it); 
+          }
+        }
+      }
+      cout << res;
+    }
+    cout << endl;
+  }
+}
