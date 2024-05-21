@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n;
+    cin >> n;
+    vector<int> v(n);
+    for(int i = 0; i < n; i++) cin >> v[i];
+    sort(v.begin(), v.end());
+    deque<int> dq;
+    int ok = 0;
+    for(int i = 0; i < n; i++){
+      dq.push_back(v[i]);
+      if(v[i] != 1) ok = 1;
+    }
+    ll cnt = 0;
+    int tmp = 0;
+    if(!ok){
+      cout << n << endl;
+      continue;
+    }
+    int ok2 = 1;
+    while(!dq.empty()){
+      if(dq.size() == 1){
+        dq.front() -= tmp;
+        if(tmp){
+          cnt++;
+          ok2 = 0;
+        }
+        if(dq.front() > 0){
+          cnt += (dq.front()+1)/2;
+          if(dq.front() != 1 && ok2){
+            cnt++;
+          }
+        }
+        break;
+      }else{
+        if(dq.front()+tmp > dq.back()){
+          cnt += dq.back() - tmp;
+           cnt++;
+          dq.front() -= dq.back() - tmp;
+          dq.pop_back();
+          tmp = 0;
+        }else if(dq.front()+tmp == dq.back()){
+          cnt += dq.back() - tmp;
+          cnt++;
+          tmp = 0;
+          dq.pop_back();
+          dq.pop_front();
+        }else{
+          cnt += dq.front();
+          tmp += dq.front();
+          dq.pop_front();
+        }
+      }
+    }
+    cout << cnt << endl;
+  }
+}
