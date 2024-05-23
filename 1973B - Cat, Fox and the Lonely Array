@@ -1,0 +1,70 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool check(vector<int> &v, int mid, int cur){
+  vector<int> bitmask(32, 0);
+  for(int i = 0; i < mid; i++){
+    int tmp = v[i];
+    for(int j = 30; j >= 0; j--){
+      if(tmp >= (1 << j)){
+        tmp -= (1 << j);
+        bitmask[j]++;
+      }
+    }
+  }
+  int kq = 0;
+  for(int i = 0; i < 32; i++){
+    if(bitmask[i]) kq += (1 << i);
+  }
+  if(kq != cur) return false;
+  for(int i = 1; i+mid-1 < v.size(); i++){
+    int tmp = v[i-1];
+    for(int j = 30; j >= 0; j--){
+      if(tmp >= (1 << j)){
+        tmp -= (1 << j);
+        bitmask[j]--;
+        if(bitmask[j] == 0){
+          kq -= (1 << j);
+        }
+      }
+    }
+    tmp = v[i+mid-1];
+    for(int j = 30; j >= 0; j--){
+      if(tmp >= (1 << j)){
+        tmp -= (1 << j);
+        bitmask[j]++;
+        if(bitmask[j] == 1){
+          kq += (1 << j);
+        }
+      }
+    }
+    if(kq != cur) return false;
+  }
+  return true;
+}
+
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n;
+    cin >> n;
+    vector<int> v(n);
+    int cur = 0;
+    for(int i = 0; i < n; i++){
+      cin >> v[i];
+      cur |= v[i];
+    }
+    int l = 1, r = n;
+    while(l < r){
+      int mid = (l+r)/2;
+      if(check(v, mid, cur) == true){
+        r = mid;
+      }else{
+        l = mid+1;
+      }
+    }
+    cout << l << endl;
+  }
+}
