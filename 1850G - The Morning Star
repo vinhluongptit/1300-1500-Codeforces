@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() 
+{
+ int t;
+ cin >> t;
+ while(t--){
+   int n;
+   cin >> n;
+   map<int, int> x, y, len, xuong;
+   for(int i = 0; i < n; i++){
+     int a, b; cin >> a >> b;
+     x[a]++;
+     y[b]++;
+     len[a+b]++;
+     xuong[a-b]++;
+   }
+   int cnt = 0;
+   for(auto tmp : x){
+     if(tmp.second > 1) cnt += tmp.second*(tmp.second-1);
+   }
+   for(auto tmp : y){
+     if(tmp.second > 1) cnt += tmp.second*(tmp.second-1);
+   }
+   for(auto tmp : len){
+     if(tmp.second > 1) cnt += tmp.second*(tmp.second-1);
+   }
+   for(auto tmp : xuong){
+     if(tmp.second > 1) cnt += tmp.second*(tmp.second-1);
+   }
+   cout << cnt << endl;
+ }
+}
