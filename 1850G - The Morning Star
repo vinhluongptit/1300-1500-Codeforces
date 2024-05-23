@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+using ll = long long;
 int main() 
 {
  int t;
@@ -7,7 +8,7 @@ int main()
  while(t--){
    int n;
    cin >> n;
-   map<int, int> x, y, len, xuong;
+   map<ll, ll> x, y, len, xuong;
    for(int i = 0; i < n; i++){
      int a, b; cin >> a >> b;
      x[a]++;
@@ -15,7 +16,7 @@ int main()
      len[a+b]++;
      xuong[a-b]++;
    }
-   int cnt = 0;
+   ll cnt = 0;
    for(auto tmp : x){
      if(tmp.second > 1) cnt += tmp.second*(tmp.second-1);
    }
