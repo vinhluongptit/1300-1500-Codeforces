@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n;
+    cin >> n;
+    vector<int> bitwise(32, 0);
+    for(int i = 0; i < 30; i++){
+      if(1LL & (n >> i)){
+        if(bitwise[i]){
+          bitwise[i+1] = 1;
+          bitwise[i] = 0;
+        }else{
+          if(i == 0){
+            bitwise[i] = 1;
+          }else{
+            if(bitwise[i-1]){
+              bitwise[i-1] = -1;
+              bitwise[i+1] = 1;
+            }else{
+              bitwise[i] = 1;
+            }
+          }
+        }
+      }
+    }
+    cout << 31 << endl;
+    for(int i = 0; i <= 30; i++) cout << bitwise[i] << " ";
+    cout << endl;
+  }
+}
