@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    ll n, k, b, s;
+    cin >> n >> k >> b >> s;
+    vector<int> p(n+1), a(n+1);
+    for(int i = 1; i <= n; i++) cin >> p[i];
+    for(int i = 1; i <= n; i++) cin >> a[i];
+    
+    ll body = 0, sas = 0;
+    ll cur1 = 0;
+    vector<bool> vis1(n+1, false);
+    ll tmp = k;
+    while(!vis1[b] && tmp){
+      vis1[b] = 1;
+      body = max(body, cur1+(a[b]*tmp));
+      tmp--;
+      cur1 += a[b];
+      b = p[b];
+    }
+    
+    
+    ll cur2 = 0;
+    vector<bool> vis2(n+1, false);
+    tmp = k;
+    while(!vis2[s] && tmp){
+      vis2[s] = 1;
+      sas = max(sas, cur2+(a[s]*tmp));
+      tmp--;
+      cur2 += a[s];
+      s = p[s];
+    }
+    if(sas == body) cout << "Draw";
+    else if(sas > body) cout << "Sasha";
+    else cout << "Bodya";
+    cout << endl;
+  }
+}
