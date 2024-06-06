@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n, m, k;
+    cin >> n >> m >> k;
+    vector<int> v(m);
+    for(int i = 0; i < m; i++) cin >> v[i];
+    sort(v.begin(), v.end(), greater<int>());
+    int lim = n/k;
+    int cnt = 0;
+    if(n % k != 0) cnt = n%k;
+    int ok = 1;
+    for(int i = 0; i < m; i++){
+      if(v[i] == lim+1){
+        if(cnt){
+          cnt--;
+        }else{
+          ok = 0;
+          break;
+        }
+      }else if(v[i] <= lim){
+        
+      }else{
+        ok = 0;
+        break;
+      }
+    }
+    if(ok) cout << "Yes";
+    else cout << "No";
+    cout << endl;
+  }
+}
