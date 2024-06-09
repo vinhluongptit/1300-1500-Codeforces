@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() 
+{
+  int t;
+  cin >> t;
+  int tm = t;
+  multiset<int> mpl;
+  multiset<int> mpr;
+  while(t--){
+    char c;
+    cin >> c;
+    int l, r;
+    cin >> l >> r;
+    if(c == '+'){
+      mpl.insert(l);
+      mpr.insert(r);
+    }else{
+      auto it1 = mpl.find(l);
+      mpl.erase(it1);
+      auto it2 = mpr.find(r);
+      mpr.erase(it2);
+    }
+    int ok;
+    if(mpl.empty() || mpr.empty()){
+      cout << "No" << endl;
+      continue;
+    }
+    auto trai = *(--mpl.end());
+    auto phai = *(mpr.begin());
+    if(trai > phai) ok = 1;
+    else ok = 0;
+    if(ok) cout << "Yes";
+    else cout << "No";
+    cout << endl;
+  }
+}
