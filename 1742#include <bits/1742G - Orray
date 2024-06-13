@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+    int n;
+    cin >> n;
+    vector<int> v(n+1);
+    for(int i = 0; i < n; i++){
+      cin >> v[i];
+    }
+    int cur = 0;
+    vector<int> check(n, false);
+    for(int i = 0; i < min(31,n); i++){
+      int idx, mx = 0;
+      for(int j = 0; j < n; j++){
+        if(check[j]) continue;
+        if((cur | v[j]) > mx){
+          idx = j;
+          mx = cur | v[j];
+        }
+      }
+      check[idx] = true;
+      cout << v[idx] << " ";
+      cur = cur | v[idx];
+    }
+    cout << endl;
+    for(int i = 0; i < n; i++){
+      if(!check[i]) cout << v[i] << " ";
+    }
+    cout << endl;
+  }
+}
