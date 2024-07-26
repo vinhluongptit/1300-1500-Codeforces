@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+  	int n;
+  	cin >> n;
+  	vector<int> v1(n), v2(n);
+  	for(int i = 0; i < n; i++){
+  		cin >> v1[i];
+	}
+	for(int i = 0; i < n; i++){
+  		cin >> v2[i];
+	}
+	int pos = 0;
+	int neg = 0;
+	int rev1 = 0, rev2 = 0;
+	for(int i = 0; i < n; i++){
+  		if(v1[i] == v2[i]){
+  			if(v1[i] > 0){
+  				pos++;
+			}else if(v1[i] < 0){
+			  	neg++;
+			}
+		}else{
+			if(v1[i] > v2[i]){
+				rev1 += v1[i];
+			}else rev2 += v2[i];
+		}
+	}
+	//cout << rev1 << " " << rev2 << " " << pos << " " << neg << endl;
+	while(pos || neg){
+		if(rev1 >= rev2 && pos){
+			rev2++;
+			pos--;
+		}else if(pos){
+			rev1++;
+			pos--;
+		}
+		if(rev1 >= rev2 && neg){
+			rev1--;
+			neg--;
+		}else if(neg){
+			rev2--;
+			neg--;
+		}
+	}
+	cout << min(rev1, rev2) << endl;
+  }
+}
