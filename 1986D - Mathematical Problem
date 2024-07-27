@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+  	int n;
+  	cin >> n;
+  	string s;
+  	cin >> s;
+  	if(n == 2){
+  		if(s[0] == '0') cout << s[1];
+  		else cout << s;
+  		cout << endl;
+  		continue;
+	}
+	if(n == 3){
+		int tmp;
+		if(s[1] == '0' && s[0] != '0' && s[2] != '0'){
+			tmp = (s[0] - '0')+(s[2] - '0');
+			tmp = min(tmp, (s[0] - '0')*(s[2] - '0'));
+			cout << tmp;
+			cout << endl;
+			continue;
+		}
+	}
+	int ok = 1;
+	int ans = 0;
+	int tmp = 200;
+	int idx;
+	for(int i = 0; i < n-1; i++){
+		if(s[i] < tmp){
+			idx = i;
+			tmp = s[i];
+		}else if(s[i] == tmp && (s[i+1] < s[idx+1] || s[idx+1] == '1')&& s[i+1] != '1'){
+			idx = i;
+			tmp = s[i];
+		}
+		if(s[i] == '0') ok = 0;
+	}
+	if(s[n-1] == '0') ok = 0;
+	int check = 1;
+	for(int i = 0; i < n; i++){
+		if(s[i] != '1') check = 0;
+	}
+	if(check && ok){
+		cout << 11 << endl;
+		continue;
+	}
+  	for(int i = 0; i < n; i++){
+  		// cout << ans << " ";
+  		if(i == idx){
+  			ans += (s[i]-'0')*10 + (s[i+1]- '0');
+  			i++;
+		}else if(s[i] == '1'){
+  			
+		}else{
+			ans += (s[i] - '0');
+		}
+	}
+	if(!ok){
+		cout << 0;
+	}else{
+		cout << ans;
+	}
+	cout << endl;
+  }
+}
