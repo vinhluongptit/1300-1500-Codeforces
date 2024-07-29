@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+ll n, k;
+vector<ll> v(200001), dp(200001);
+vector<vector<ll>> tmp(200001);
+
+void check(int i){
+	if(dp[i] != -1) return;
+	else dp[i] = v[i];
+	ll ans = 0;
+	// cout << i << " " << tmp[i].size() << endl;
+	for(int x = 1; x <= tmp[i].size()-1; x++){
+		if(dp[tmp[i][x]] == -1){
+			//cout << i << " " <<x << " " <<tmp[i][x] << endl;
+			check(tmp[i][x]);
+		}
+		ans += dp[tmp[i][x]];
+	}
+	dp[i] = min(dp[i], ans);
+	//cout << i <<" " << dp[i] << endl;
+}
+int main() 
+{
+  int t;
+  cin >> t;
+  while(t--){
+  	cin >> n >> k;
+  	fill(dp.begin(), dp.end(), -1);
+  	for(int i = 1; i <= n; i++){
+  		cin >> v[i];
+	}
+	for(int i = 0; i < k; i++){
+		int x; cin >> x;
+		dp[x] = 0;
+	}
+	for(int i = 1; i <= n; i++){
+		int x; cin >> x;
+		if(!x){
+			if(dp[i] != 0) dp[i] = v[i];
+		}else{
+			tmp[i].resize(x+1);
+			for(int j = 1; j <= x; j++){
+				cin >> tmp[i][j];
+			}
+		}
+	}
+	for(int i = 1; i <= n; i++){
+		check(i);
+	}
+	for(int i = 1; i <= n; i++){
+		cout << dp[i] << " ";
+	}
+	cout << endl;
+  }
+}
