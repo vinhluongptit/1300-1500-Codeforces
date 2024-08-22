@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+	int t;
+	cin >> t;
+	while(t--){
+		int n, m;
+		cin >> n >> m;
+		vector<ll> v(n);
+		for(int i = 0; i < n; i++){
+			cin >> v[i];
+		}
+		sort(v.begin(), v.end());
+		while(m--){
+			int ok = 1;
+			ll a, b, c;
+			cin >> a >> b >> c;
+			if(c < 0){
+				cout << "NO" << endl;
+				continue;
+			}
+			ll tmp = 4*a*c;
+			auto it = lower_bound(v.begin(), v.end(), b);
+			if(it != v.end() && (b-*it)*(b-*it) - tmp < 0){
+				cout << "YES" << endl;
+				cout << *it << endl;
+			}else if(it != v.begin() && (b-*(it-1))*(b-*(it-1)) - tmp < 0){
+				cout << "YES" << endl;
+				cout << *(it-1) << endl;
+			}else{
+				cout << "NO" << endl;
+			}
+		}
+		cout << endl;
+	}	
+}
