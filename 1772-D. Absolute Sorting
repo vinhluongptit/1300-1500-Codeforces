@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+bool check(int val, vector<ll> v){
+	int ok = 1;
+	for(int i = 1; i < v.size(); i++){
+		ll tmp = abs(v[i-1] - val);
+		ll tmp2 = abs(v[i] - val);
+		if(tmp > tmp2){
+			ok = 0;
+			break;
+		}
+	}
+	if(ok) return true;
+	else return false;
+}
+
+int main() 
+{
+	int t;
+	cin >> t;
+	while(t--){
+		ll n;
+		cin >> n;
+		vector<int> v(n);
+		for(int i = 0; i < n; i++){
+			cin >> v[i];
+		}
+		int to = 1e9, nho = 0;
+		for(int i = 1; i < n; i++){
+			if(v[i] < v[i-1]){
+				nho = max(nho, ((v[i]+v[i-1]+1) / 2));
+			}else if(v[i] > v[i-1]){
+				to = min(to, ((v[i]+v[i-1]) / 2));
+			}
+		}
+		if(to >= nho){
+			cout << nho;
+		}else cout << -1;
+		cout << endl;
+	}	
+}
