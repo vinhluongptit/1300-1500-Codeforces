@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+	int t;
+	cin >> t;
+	while(t--){
+		int n, k;
+		cin >> n >> k;
+		vector<int> v(n);
+		ll ans = 0;
+		vector<int> mp(k+1, 0);
+		for(int i = 0; i < n; i++){
+			cin >> v[i];
+			ans += (v[i] / k);
+			v[i] %= k;
+			mp[v[i]]++;
+		}
+		int l = 1, r = k-1;
+		while(l <= r){
+			if(l == r){
+				if(l*2 >= k){
+					ans += mp[l]/2;
+					break;
+				}
+			}
+			if(!mp[l]){
+				while(!mp[l]){
+					l++;
+					if(l <= r) break;
+				}
+			}else if(!mp[r]){
+				while(!mp[r]){
+					r--;
+					if(l <= r) break;
+				}
+			}else{
+				if(l+r < k){
+					l++;
+				}else{
+					ans += min(mp[l], mp[r]);
+					int tmp = min(mp[l], mp[r]);
+					mp[l] -= tmp;
+					mp[r] -= tmp;
+				}
+			}
+		}
+		cout << ans;
+		cout << endl;
+	}
+	
+}
