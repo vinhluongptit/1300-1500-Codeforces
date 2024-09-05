@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+
+
+int main() 
+{
+	int t;
+	cin >> t;
+	while(t--){
+		int n, x;
+		cin >> n >> x;
+		vector<int> v(n+1);
+		v[1] = x;
+		v[n] = 1;
+		int ok = 1;
+		for(int i = 2; i < n; i++){
+			if(i == x){
+				if(n % x == 0){
+					v[i] = n;
+				}else{
+					ok = 0;
+					break;
+				}
+			}else{
+				v[i] = i;
+			}
+		}
+		if(!ok){
+			cout << -1;
+		}else{
+			int tmp = x;
+//			for(int i = 1; i <= n; i++){
+//				cout << v[i] << " ";
+//			}
+//			cout << endl;
+			for(int i = x*2; i <= n-1; i += x){
+				if(v[i] % tmp == 0 && v[tmp] % i == 0){
+					swap(v[tmp], v[i]);
+					tmp = i;
+				}
+			}
+			for(int i = 1; i <= n; i++){
+				cout << v[i] << " ";
+			}
+		}
+		cout << endl;
+	}
+}
