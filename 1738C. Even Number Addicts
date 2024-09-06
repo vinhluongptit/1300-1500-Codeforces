@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+signed main()
+{
+	int t; cin >> t;
+	while(t--)
+	{
+		int n; cin >> n;
+		vector<int> v(n);
+		int even = 0, odd = 0;
+		int ok = 1;
+		for(int i = 0; i < n; i++){
+			cin >> v[i];
+			if(v[i] & 1) odd++;
+			else even++;
+		}
+		even %= 2; odd %= 4;
+		if(even){
+			if(odd == 2) ok = 0;
+		}else{
+			if(odd == 2 || odd == 1) ok = 0;
+		}
+		
+		
+		if(ok) cout << "Alice";
+		else cout << "Bob";
+		cout << endl;
+	}
+}
