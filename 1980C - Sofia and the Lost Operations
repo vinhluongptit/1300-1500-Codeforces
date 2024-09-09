@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main()
+{
+	int t; cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		vector<int> a(n), b(n);
+		for(int i = 0 ;i < n; i++){
+			cin >> a[i];
+		}
+		map<int,int> change, check;
+		for(int i = 0 ;i < n; i++){
+			cin >> b[i];
+			check[b[i]]++;
+			if(a[i] != b[i]){
+				change[b[i]]++;
+			}
+		}
+		int m; cin >> m;
+		int idx;
+		map<int,int> mp;
+		for(int i = 0; i < m; i++){
+			int x; cin >> x;
+			mp[x]++;
+			if(i == m-1) idx = x;
+		}
+		int ok = 1;
+		for(auto it : change){
+			if(it.second){
+				if(it.second > mp[it.first]){
+					ok = 0;
+					break;
+				}
+			}
+		}
+		//cout << idx << " " << check[idx] << endl;
+		if(!check[idx]) ok = 0;
+		if(ok) cout << "YES";
+		else cout << "NO";
+		cout << endl;
+	}
+}
