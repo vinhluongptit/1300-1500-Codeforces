@@ -1,0 +1,109 @@
+#include<bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+int main()
+{
+	int t;
+	cin >> t;
+	while(t--){
+		int n; cin >> n;
+		vector<ll> v(n+1, 0), dp(n+1, 0);
+		for(int i = 1; i <= n; i++){
+			cin >> v[i];
+			dp[i] += dp[i-1] + v[i];
+		}
+		
+		int q; cin >> q;
+		while(q--){
+			ll x, u; cin >> x >> u;
+			ll l = x, r = n;
+			ll hi = min(u, v[x]);
+			ll hi2 = max(0LL, v[x]-u-1);
+			ll tmp = ((hi*(hi+1))/2) - ((hi2*(hi2+1))/2);
+			ll idx = x;
+			ll dm = (x+n)/2;
+			ll tracks;
+			while(l <= r){
+				ll mid = (l+r)/2;
+				tracks = dp[mid] - dp[x-1];
+				ll tmp1 = max(0LL, u - tracks);
+				ll tmp2 = max(0LL, tracks - u - 1);
+				ll increase = (((u*(u+1))/2) - (tmp1*(tmp1+1))/2 ) - ((tmp2*(tmp2+1))/2);
+			//	cout << l << " " << r << " " << idx << " " << tmp << " " << increase << " " << mid << endl;
+				if(increase > tmp){
+					l = mid+1;
+					tmp = increase;
+					idx = mid;
+				}else if(increase < tmp){
+					r = mid-1;
+				}else{
+					if(mid < idx){
+							tmp = increase;
+					}
+					idx = min(idx, mid);
+					r--;
+				}
+			}
+			while(idx == dm){
+				l = x, r = dm;
+				if(idx == x) break;
+				dm = (l+r)/2;
+				while(l <= r){
+					ll mid = (l+r)/2;
+					ll tracks = dp[mid] - dp[x-1];
+					ll tmp1 = max(0LL, u - tracks);
+					ll tmp2 = max(0LL, tracks - u - 1);
+					ll increase = (((u*(u+1))/2) - (tmp1*(tmp1+1))/2 ) - ((tmp2*(tmp2+1))/2);
+					if(increase > tmp){
+						l = mid+1;
+						tmp = increase;
+						idx = mid;
+					}else if(increase < tmp){
+						r = mid-1;
+					}else{
+						if(mid < idx){
+							tmp = increase;
+						}
+						idx = min(idx, mid);
+						r--;
+					}
+				}
+			}
+			int mid = idx;
+			int ok = 1;
+			while(mid < n){
+				mid++;
+				tracks = dp[mid] - dp[x-1];
+				ll tmp1 = max(0LL, u - tracks);
+				ll tmp2 = max(0LL, tracks - u - 1);
+				ll increase = (((u*(u+1))/2) - (tmp1*(tmp1+1))/2 ) - ((tmp2*(tmp2+1))/2);
+				if(increase > tmp){
+					idx = mid;
+					tmp = increase;
+					ok = 0;
+				}else{
+					break;
+				}
+			}
+			if(!ok){
+				cout << idx << " ";
+				continue;
+			}
+			mid = idx;
+			while(mid > x){
+				mid--;
+				tracks = dp[mid] - dp[x-1];
+				ll tmp1 = max(0LL, u - tracks);
+				ll tmp2 = max(0LL, tracks - u - 1);
+				ll increase = (((u*(u+1))/2) - (tmp1*(tmp1+1))/2 ) - ((tmp2*(tmp2+1))/2);
+				if(increase >= tmp){
+					tmp = increase;
+					idx = mid;
+				}else break;
+			}
+			cout << idx << " ";
+		}
+		cout << endl;
+	}
+}
