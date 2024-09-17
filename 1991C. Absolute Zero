@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+const int mod = 1e9 + 7;
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+       	int n; cin >> n;
+       	set<int> st;
+       	for(int i = 0; i < n; i++){
+       		int x; cin >> x;
+       		st.insert(x);
+		}
+		int steps = 40;
+		vector<int> v;
+		while(steps >= 0 && *st.rbegin() != 0){
+			int tmp1 = *st.begin();
+			int tmp2 = *st.rbegin();
+			int x = (tmp1+tmp2)/2;
+			v.push_back(x);
+			set<int> tmpst;
+			for(auto it : st){
+				tmpst.insert(abs(it-x));
+			}
+			st = tmpst;
+			steps--;
+		}
+		if(steps >= 0){
+			cout << v.size() << endl;
+			for(auto it : v) cout << it << " ";
+		}else{
+			cout << -1;
+		}
+        cout << endl;
+    }
+}
