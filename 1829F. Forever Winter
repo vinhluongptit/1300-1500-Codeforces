@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+const int mod = 1e9 + 7;
+
+
+int main() {
+    int t;
+    cin >> t;
+    while(t--){
+    	int n, m;
+    	cin >> n >> m;
+    	vector<vector<int>> ke(n+1);
+    	while(m--){
+    		int x, y; cin >> x >> y;
+    		ke[x].push_back(y);
+    		ke[y].push_back(x);
+		}
+		int tmp;
+		for(int i = 1; i <= n; i++){
+			if(ke[i].size() == 1){
+				tmp = ke[i][0];
+				break;
+			}
+		}
+		int x = 0, y = 0;
+		for(auto it : ke[tmp]){
+			if(ke[it].size() == 1) y++;
+			else{
+				tmp = it;
+			}
+		}
+		for(auto it : ke[tmp]){
+			x++;
+		}
+		cout << x << " " << y << endl;
+	}
+}
