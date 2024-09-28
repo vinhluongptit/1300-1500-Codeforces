@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+int main() {
+	int t; cin >> t;
+	while(t--){
+		int n;
+		string s;
+		cin >> n >> s;
+		ll ans = 0;
+		for(int i = 0; i < n; i++){
+			int dem[10], diff = 0;
+			for(int j = 0; j < 10; j++){
+				dem[j] = 0;
+			}
+			for(int j = i; j < n; j++){
+				if(!dem[s[j] - '0']) diff++;
+				dem[s[j] - '0']++;
+				int tmp = *max_element(dem, dem+10);
+				if(tmp <= diff) ans++;
+				if(tmp > 10) break;
+			}
+		}
+		cout << ans;
+		cout << endl;
+	}
+    
+}
