@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+int main() {
+	int t; cin >> t;
+	while(t--){
+		int n, k; cin >> n >> k;
+		string s; cin >> s;
+		int idx = 1e9;
+		int tmp;
+		int maxx = 0;
+		int cons ;
+		for(int i = 0; i < n; i++){
+			if(s[i] - 'a' <= k){
+				maxx = max(maxx, s[i] - 'a');
+				s[i] = 'a';
+			}else{
+				cons = (s[i] - 'a' - (k-maxx));
+				idx = i;
+				tmp = s[i] - 'a';
+				break;
+			}
+		}
+	//	cout <<  maxx << " " << cons << " " << idx << " " << tmp << endl;
+		for(int i = idx; i < n; i++){
+			int diff = s[i] - 'a';
+			if(diff <= maxx){
+				s[i] = 'a';
+			}else if(diff > cons && diff <= tmp){
+				s[i] = char('a' + cons);
+			}
+//			}else if(diff > tmp-k1 && diff <= tmp){
+//				s[i] = s[i] - (k - maxx);
+//			}
+		}
+		cout << s;
+		cout << endl;
+	}
+    
+}
